@@ -131,9 +131,7 @@ Offline tests inject scripted model responses or use an HTTP mock transport. The
 
 ## Submission
 
-See `docs/ASSESSMENT.md` for requirement coverage and `docs/DEMO.md` for the 9-minute recording outline. Record both live inputs, show actual Word downloads, and discuss a real debugging issue. This development and verification session exceeded the 60-minute assessment limit; treat it as a prepared implementation, not a compliant timed attempt. Report actual build/recording time honestly. The video itself must be recorded by the candidate.
-
-`docs/VIDEO_SCRIPT.md` contains a project walkthrough, recording commands, a timed spoken script, screen cues, honest failure responses and interview questions to rehearse.
+See `docs/ASSESSMENT.md` for requirement coverage. Record both live inputs, show actual Word downloads, and discuss a real debugging issue. This development and verification session exceeded the 60-minute assessment limit; treat it as a prepared implementation, not a compliant timed attempt. Report actual build/recording time honestly. The video itself must be recorded by the candidate.
 
 After both live runs and document inspection, `python scripts/package_submission.py` builds `submission.zip` from an explicit file allowlist. It includes source, instructions and actual samples under `sample_outputs/`, and excludes `.env`, the virtual environment and internal QA files. Sample JSON files record the model used for each actual run; they are not a mock runtime.
 
