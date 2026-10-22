@@ -1,0 +1,3 @@
+{
+  "request": "Write a project plan to launch a customer support chatbot in two weeks with two engineers, while also requiring enterprise SSO, multilingual support, CRM integration and zero defects. There is no product owner and no confirmed budget. Do not ask follow-up questions. Decide what can realistically be delivered, explain conflicts and assumptions, propose a phased scope, assign provisional owners, include a risk matrix and acceptance criteria, and identify decisions needing approval. For an illustrative engineering-only cost estimate, assume each engineer works 10 days at INR 6000 per day; use these figures and clearly distinguish this estimate from an approved budget."
+}
