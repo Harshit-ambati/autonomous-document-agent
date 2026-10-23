@@ -1,0 +1,27 @@
+[
+  {
+    "id": "standard",
+    "request_file": "examples/standard.json",
+    "minimum_requirements": 5,
+    "minimum_document_words": 400,
+    "required_concepts": [
+      {"name": "all four relative weeks", "all": ["week 1", "week 2", "week 3", "week 4"]},
+      {"name": "responsible roles", "all": ["hr", "engineering manager", "mentor"]},
+      {"name": "measurable outcomes", "any": ["success criteria", "measurable", "metric"]}
+    ],
+    "budget": null
+  },
+  {
+    "id": "complex",
+    "request_file": "examples/complex.json",
+    "minimum_requirements": 7,
+    "minimum_document_words": 500,
+    "required_concepts": [
+      {"name": "enterprise features", "all": ["enterprise sso", "multilingual", "crm"]},
+      {"name": "feasible phased scope", "all": ["phase 2", "two-week"]},
+      {"name": "delivery decisions", "all": ["risk", "acceptance", "approval"]},
+      {"name": "qualified defect gate", "any": ["no known critical", "no critical or high"]}
+    ],
+    "budget": {"currency": "INR", "engineer_days": "20", "daily_rate": "6000", "total": "120000.00"}
+  }
+]

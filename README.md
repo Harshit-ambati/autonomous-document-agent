@@ -111,6 +111,7 @@ These pattern checks cover common credential formats, not every possible secret.
 | `app/documents.py` | Deterministic Word styles, tables, pagination and atomic save |
 | `app/guardrails.py` | Input, review coverage, and output credential checks |
 | `app/static/` | Local frontend; no Node build step or CDN |
+| `evals/` | Recorded and optional live evaluations with a JSON report |
 | `examples/` | Standard and complex assessment inputs |
 | `scripts/demo.py` | Real HTTP demonstration and artifact downloads |
 | `tests/test_agent.py` | Offline contract, API, tool and failure-path tests |
@@ -119,10 +120,13 @@ These pattern checks cover common credential formats, not every possible secret.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m ruff check app scripts tests
+.\.venv\Scripts\python.exe -m ruff check app scripts tests evals
+.\.venv\Scripts\python.exe -m evals.run
 ```
 
-Offline tests inject scripted model responses or use an HTTP mock transport. They verify orchestration, rendering structure and failure behavior; they do **not** prove live Gemini behavior or semantic quality. The two real demo runs and visual document inspection are separate acceptance steps. Consult `docs/VALIDATION.md` for observed results, not inferred completion.
+The evaluation runner checks two recorded live runs for response structure, task trace, review coverage, Word/JSON content parity, request-specific concepts, and exact cost arithmetic. It writes `outputs/evals/report.json` and exits nonzero if a check fails. It makes no model calls by default. To generate fresh responses through a running local server, use `python -m evals.run --source live --base-url http://127.0.0.1:8000`; this consumes model quota and saves artifacts under `outputs/evals/live_artifacts/`.
+
+Offline tests inject scripted model responses or use an HTTP mock transport. They verify orchestration, rendering structure and failure behavior; they do **not** prove live Gemini behavior or semantic quality. Recorded eval fixtures come from actual prior runs but do not prove future runs will pass. Consult `docs/EVALS.md` and `docs/VALIDATION.md` for limits and observed results.
 
 ## Deliberate tradeoffs
 

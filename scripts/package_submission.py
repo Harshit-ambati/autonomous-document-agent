@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     sources = []
-    for directory in ("app", "scripts", "tests", "examples", "docs", ".github"):
+    for directory in ("app", "scripts", "tests", "examples", "evals", "docs", ".github"):
         sources.extend(
             path
             for path in (ROOT / directory).rglob("*")

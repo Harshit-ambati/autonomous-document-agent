@@ -1,0 +1,347 @@
+{
+  "run_id": "91ad56b9-15bc-4791-afba-4c132d48ea1e",
+  "status": "completed",
+  "summary": "This document outlines a structured four-week onboarding program designed for five new software engineers joining our 30-person software company next month. The executive summary highlights the core objectives, defines phased timelines using relative weeks, delineates stakeholder responsibilities across Human Resources, engineering management, and assigned mentors, and establishes measurable success criteria to ensure rapid integration, productivity, and team alignment.",
+  "plan": {
+    "title": "Employee Onboarding Proposal for Software Engineering Hires",
+    "document_type": "Business Proposal",
+    "overview": "This document outlines a structured four-week onboarding program designed for five new software engineers joining our 30-person software company next month. The executive summary highlights the core objectives, defines phased timelines using relative weeks, delineates stakeholder responsibilities across Human Resources, engineering management, and assigned mentors, and establishes measurable success criteria to ensure rapid integration, productivity, and team alignment.",
+    "requirements": [
+      "Create an employee onboarding proposal tailored for a 30-person software company",
+      "Onboard five new software engineers starting next month",
+      "Include clear program objectives",
+      "Provide a four-week onboarding timeline using relative weeks",
+      "Define responsibilities for HR, the engineering manager, and mentors",
+      "Establish measurable success criteria"
+    ],
+    "assumptions": [
+      "Exact calendar start dates are unconfirmed, so relative weeks are used for the timeline.",
+      "No budget is required per request instructions.",
+      "Standard software engineering tools and workstations are pre-provisioned by HR and IT."
+    ],
+    "conflicts": [],
+    "tasks": [
+      {
+        "id": "task_1",
+        "title": "Onboarding Program Objectives and Scope",
+        "tool": "draft_section",
+        "instructions": "Draft the objectives section defining the goals for integrating the five new software engineers into the 30-person company culture, technical stack, and delivery workflows.",
+        "depends_on": [],
+        "cost_items": [],
+        "currency": ""
+      },
+      {
+        "id": "task_2",
+        "title": "Four-Week Onboarding Timeline",
+        "tool": "draft_section",
+        "instructions": "Draft the four-week relative timeline covering pre-boarding, initial setup, code contribution milestones, and full integration.",
+        "depends_on": [
+          "task_1"
+        ],
+        "cost_items": [],
+        "currency": ""
+      },
+      {
+        "id": "task_3",
+        "title": "Stakeholder Responsibilities",
+        "tool": "draft_section",
+        "instructions": "Detail the specific responsibilities for Human Resources, the engineering manager, and designated mentors throughout the onboarding cycle.",
+        "depends_on": [
+          "task_2"
+        ],
+        "cost_items": [],
+        "currency": ""
+      },
+      {
+        "id": "task_4",
+        "title": "Measurable Success Criteria",
+        "tool": "draft_section",
+        "instructions": "Define the measurable success criteria and review gates to evaluate the effectiveness of the onboarding program for the new engineering hires.",
+        "depends_on": [
+          "task_3"
+        ],
+        "cost_items": [],
+        "currency": ""
+      }
+    ]
+  },
+  "document": {
+    "title": "Employee Onboarding Proposal for Software Engineering Hires",
+    "summary": "This document outlines a structured four-week onboarding program designed for five new software engineers joining our 30-person software company next month. The executive summary highlights the core objectives, defines phased timelines using relative weeks, delineates stakeholder responsibilities across Human Resources, engineering management, and assigned mentors, and establishes measurable success criteria to ensure rapid integration, productivity, and team alignment.",
+    "assumptions": [
+      "Exact calendar start dates are unconfirmed, so relative weeks are used for the timeline.",
+      "No budget is required per request instructions.",
+      "Standard software engineering tools and workstations are pre-provisioned by HR and IT."
+    ],
+    "conflicts": [],
+    "sections": [
+      {
+        "heading": "Onboarding Program Objectives and Scope",
+        "paragraphs": [
+          "To successfully integrate five new software engineers into our 30-person company next month, this onboarding proposal establishes a comprehensive framework focused on culture, technical mastery, and delivery workflows. As a growing team, rapid alignment is essential to maintain development velocity and team cohesion.",
+          "The primary objective is to transition new hires from initial orientation to autonomous feature delivery within four weeks. The scope encompasses cultural assimilation, access provisioning, secure codebase familiarization, and structured mentorship to maximize early impact."
+        ],
+        "bullets": [
+          "Accelerate time-to-first-code-commit to within the first relative week of employment.",
+          "Immerse new hires in company core values, communication norms, and agile delivery cadences.",
+          "Establish rigorous technical standards through peer code reviews and architectural overviews.",
+          "Reduce ramp-up friction via dedicated peer mentoring and continuous feedback loops."
+        ],
+        "tables": [
+          {
+            "caption": "Onboarding Objectives Summary",
+            "columns": [
+              "Focus Area",
+              "Primary Goal",
+              "Target Completion"
+            ],
+            "rows": [
+              [
+                "Culture",
+                "Understand company values and team communication channels",
+                "Week 1"
+              ],
+              [
+                "Technical Stack",
+                "Complete local environment setup and architecture briefings",
+                "Week 2"
+              ],
+              [
+                "Delivery Workflow",
+                "Merge first production pull request in agile sprint",
+                "Week 4"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Four-Week Onboarding Timeline",
+        "paragraphs": [
+          "The onboarding schedule is structured across four relative weeks to guide new engineering hires from initial administrative setup to autonomous production deployments. Each week contains specific milestones designed to validate technical competency and cultural integration within our 30-person engineering organization."
+        ],
+        "bullets": [
+          "Week 1 focuses on administrative pre-boarding, workstation provisioning, and initial cultural orientation.",
+          "Week 2 centers on technical architecture briefings, local environment configuration, and shadowing peer code reviews.",
+          "Week 3 emphasizes first code commits, pairing sessions, and small bug fixes in the staging environment.",
+          "Week 4 culminates in full deployment autonomy, merging the first production pull request, and completing the 30-day review."
+        ],
+        "tables": [
+          {
+            "caption": "Four-Week Onboarding Timeline",
+            "columns": [
+              "Relative Week",
+              "Primary Focus",
+              "Key Milestone"
+            ],
+            "rows": [
+              [
+                "Week 1",
+                "Setup and Orientation",
+                "Complete HR paperwork and access provisioning"
+              ],
+              [
+                "Week 2",
+                "Technical Foundation",
+                "Finish local environment setup and architecture review"
+              ],
+              [
+                "Week 3",
+                "Guided Development",
+                "Submit first code commit and pair with mentor"
+              ],
+              [
+                "Week 4",
+                "Autonomous Delivery",
+                "Merge first production pull request"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Stakeholder Responsibilities",
+        "paragraphs": [
+          "A successful onboarding program for our five new software engineers requires coordinated execution across multiple organizational roles. Human Resources, the engineering manager, and designated peer mentors share clear, distinct duties throughout the four-week integration cycle to ensure administrative compliance, technical alignment, and cultural integration within our 30-person company."
+        ],
+        "bullets": [
+          "Human Resources owns pre-boarding paperwork, compliance, benefits enrollment, and initial orientation logistics.",
+          "The engineering manager oversees milestone reviews, resource allocation, performance expectations, and formal 30-day feedback.",
+          "Assigned mentors provide daily technical guidance, code review support, and pair programming sessions."
+        ],
+        "tables": [
+          {
+            "caption": "Stakeholder Responsibilities",
+            "columns": [
+              "Stakeholder Role",
+              "Primary Focus",
+              "Key Deliverable"
+            ],
+            "rows": [
+              [
+                "Human Resources",
+                "Administration and compliance",
+                "Completed paperwork and access provisioning"
+              ],
+              [
+                "Engineering Manager",
+                "Performance and alignment",
+                "Weekly check-ins and 30-day formal review"
+              ],
+              [
+                "Mentor",
+                "Technical support and pairing",
+                "Daily guidance and code review feedback"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Measurable Success Criteria",
+        "paragraphs": [
+          "To evaluate the effectiveness of the onboarding program and ensure our five new software engineers integrate smoothly into our 30-person company, we establish clear, measurable success criteria and structured review gates. These metrics track technical competence, operational independence, and cultural alignment throughout the four-week ramp-up period.",
+          "Performance will be assessed continuously by engineering managers and mentors, culminating in formal review gates at week two and week four to confirm readiness for independent feature delivery."
+        ],
+        "bullets": [
+          "Successful deployment of at least one non-trivial production pull request by the end of Week 3.",
+          "100 percent completion of all required security, compliance, and core engineering training modules by Week 2.",
+          "Positive peer feedback score exceeding 85 percent regarding collaboration and communication during daily stand-ups and code reviews.",
+          "Completion of a formal 30-day performance and alignment review with the engineering manager confirming role clarity and productivity."
+        ],
+        "tables": [
+          {
+            "caption": "Success Criteria and Review Gates",
+            "columns": [
+              "Review Gate",
+              "Target Timeline",
+              "Success Metric"
+            ],
+            "rows": [
+              [
+                "Compliance Gate",
+                "End of Week 2",
+                "100% training completion and tool access established"
+              ],
+              [
+                "Technical Gate",
+                "End of Week 3",
+                "First production code deployment completed"
+              ],
+              [
+                "Integration Gate",
+                "End of Week 4",
+                "Positive 30-day review and independent sprint contribution"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reviews": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "requirement_index": 1,
+          "requirement": "Create an employee onboarding proposal tailored for a 30-person software company",
+          "satisfied": true,
+          "evidence": "The proposal explicitly targets a 30-person software company throughout the summary and section text."
+        },
+        {
+          "requirement_index": 2,
+          "requirement": "Onboard five new software engineers starting next month",
+          "satisfied": true,
+          "evidence": "The document consistently addresses onboarding five new software engineers starting next month."
+        },
+        {
+          "requirement_index": 3,
+          "requirement": "Include clear program objectives",
+          "satisfied": true,
+          "evidence": "Section 1 clearly details program objectives, scope, and specific acceleration goals."
+        },
+        {
+          "requirement_index": 4,
+          "requirement": "Provide a four-week onboarding timeline using relative weeks",
+          "satisfied": true,
+          "evidence": "Section 2 outlines a four-week schedule utilizing relative week designations."
+        },
+        {
+          "requirement_index": 5,
+          "requirement": "Define responsibilities for HR, the engineering manager, and mentors",
+          "satisfied": true,
+          "evidence": "Section 3 explicitly delineates duties for HR, engineering managers, and assigned mentors."
+        },
+        {
+          "requirement_index": 6,
+          "requirement": "Establish measurable success criteria",
+          "satisfied": true,
+          "evidence": "Section 4 establishes quantitative and qualitative metrics along with structured review gates."
+        },
+        {
+          "requirement_index": 0,
+          "requirement": "Verify no budget estimate is included per request instructions",
+          "satisfied": true,
+          "evidence": "No budget or financial cost table is present in the draft document."
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "trace": [
+    {
+      "step": "Create execution plan",
+      "tool": "planner",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 23875
+    },
+    {
+      "step": "Onboarding Program Objectives and Scope",
+      "tool": "draft_section",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 21547
+    },
+    {
+      "step": "Four-Week Onboarding Timeline",
+      "tool": "draft_section",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 21641
+    },
+    {
+      "step": "Stakeholder Responsibilities",
+      "tool": "draft_section",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 27718
+    },
+    {
+      "step": "Measurable Success Criteria",
+      "tool": "draft_section",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 23545
+    },
+    {
+      "step": "Check requirements 1",
+      "tool": "self_check",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 31500
+    },
+    {
+      "step": "Generate Word document",
+      "tool": "render_docx",
+      "status": "completed",
+      "detail": "Validated output produced",
+      "duration_ms": 250
+    }
+  ],
+  "download_url": "/documents/91ad56b9-15bc-4791-afba-4c132d48ea1e",
+  "trace_url": "/runs/91ad56b9-15bc-4791-afba-4c132d48ea1e",
+  "model": "gemini-3.5-flash-lite",
+  "elapsed_ms": 150077
+}

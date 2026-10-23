@@ -1,10 +1,10 @@
 # Validation record
 
-Validated locally on 22 October 2026 using Python 3.12.14. This record distinguishes offline tests, actual model calls and document visual inspection. It does not certify build duration or a recorded video.
+Initially validated locally on 22 October 2026 using Python 3.12.14; evaluation fixtures and automated checks were updated on 23 October. This record distinguishes offline tests, actual model calls and document visual inspection. It does not certify build duration or a recorded video.
 
 ## Offline checks
 
-- 24 tests passed. Coverage includes API request validation, a successful HTTP-to-Word flow, document download and saved trace, forbidden tools and invalid dependencies, exact INR 120,000 arithmetic, dependency output propagation, preservation of calculated sections through revision, indexed coverage that accepts paraphrases, missing review coverage, bounded revision failure with actionable review details, missing credentials, unknown download IDs, timeouts, malformed tables, provider status handling and invalid JSON repair.
+- 35 tests passed on 23 October. Coverage includes API request validation, a successful HTTP-to-Word flow, document download and saved trace, forbidden tools and invalid dependencies, exact INR 120,000 arithmetic, dependency output propagation, preservation of calculated sections through revision, indexed coverage, missing review coverage, bounded revision failure, credential guardrails, frontend serving, provider status handling, invalid JSON repair, and evaluator mutation failures.
 - Ruff lint passed and Python files were formatted.
 - One upstream Starlette test-client deprecation warning is emitted for its httpx compatibility path. Tests pass; this is not an application failure. No warning suppression was added.
 - These tests use scripted model replies or an HTTP mock transport; they are not live agent evidence.
@@ -13,23 +13,23 @@ Validated locally on 22 October 2026 using Python 3.12.14. This record distingui
 
 - Request: `examples/standard.json`.
 - Model: `gemini-3.5-flash-lite`.
-- Final run: `48bfcc9f-c1f3-47c8-9213-426bb9d8ca91`.
-- End-to-end agent time: 82,733 ms.
+- Current recorded run: `91ad56b9-15bc-4791-afba-4c132d48ea1e`.
+- End-to-end agent time: 150,077 ms.
 - Four generated drafting tasks: objectives, a four-week timeline, roles and responsibilities, and measurable success criteria. Each later task used declared dependency outputs.
 - The self-check passed; the HTTP response and actual Word download both returned 200.
-- `outputs/demo/standard.json` preserves the final live response, including six indexed requirement checks. The Word document is the actual downloaded artifact from that run; model-generated content was not manually rewritten.
-- Microsoft Word opened the document read-only and exported a local QA PDF. All three final page images were visually inspected. The inherited title border was removed, and table headers are kept with their first data rows.
+- `outputs/demo/standard.json` preserves this live response, including seven indexed requirement checks. The paired Word document comes from that response's run ID; model-generated content was not manually rewritten.
+- An earlier standard run was visually inspected after Microsoft Word PDF export. The current recorded Word file has passed structural and content-parity checks, but its page layout has not been visually re-inspected.
 
 ## Actual complex demonstration
 
 - Request: `examples/complex.json`.
 - Model: `gemini-3.5-flash-lite`.
-- Final run: `90c38da3-fc1b-4913-855a-169f1b80403f`; end-to-end agent time 120,905 ms.
+- Current recorded run: `d77e3038-940f-4ce4-abbf-683ef8210697`; end-to-end agent time 202,468 ms.
 - Five generated tasks: engineering cost calculation, scope realignment, risk/conflict analysis, acceptance criteria, and approval decisions.
 - The deterministic budget tool calculated 20 engineer-days at INR 6,000, totaling INR 120,000. The document explicitly identifies this as illustrative and unapproved.
-- The document proposes a two-week FAQ MVP, defers SSO, multilingual support and CRM integration, identifies provisional Engineer A/B roles, and replaces an absolute defect guarantee with a qualified acceptance gate requiring stakeholder approval.
-- The final self-check passed with seven indexed requirement checks. The API response and actual Word download returned 200. Both final samples use the same selected model and indexed review contract.
-- All four final page images were inspected after Microsoft Word export and Poppler rasterization. No clipping, broken tables or inherited title border was found.
+- The document proposes a two-week core chatbot, defers SSO, multilingual support and CRM integration, identifies provisional Engineer 1/2 roles, and replaces an absolute defect guarantee with a qualified acceptance gate requiring stakeholder approval.
+- The final self-check passed with eight indexed requirement checks. The API response and actual Word download returned 200. Both current samples use the same selected model and indexed review contract.
+- An earlier complex run was visually inspected after Microsoft Word export and Poppler rasterization. The current recorded Word file has passed structural and content-parity checks, but its page layout has not been visually re-inspected.
 - Prior actual attempts failed on provider availability, quota or review validation and correctly released no document. One earlier successful draft contained inconsistent phase labels missed by the model's own check; content review caught them, the planner/writer/reviewer instructions were strengthened, and the final example was regenerated through the API. This illustrates why model reflection is not an independent correctness guarantee.
 
 ## Real debugging observations
@@ -53,6 +53,12 @@ Resolution: separate optional table-cell text from mandatory labels. Headers rem
 Symptom: visual inspection revealed a blue border inherited from the bundled Word Title style and a table header alone at the foot of a page.
 
 Resolution: strip paragraph borders from the template styles and keep header paragraphs with the first data row. Re-rendered standard pages passed inspection. OOXML-only inspection would not have caught the pagination issue.
+
+### Evaluation found mismatched sample pairs
+
+Symptom: the `outputs/demo/` Word files were older than the JSON responses and contained different section headings. The first recorded evaluation failed its Word/JSON parity checks for both cases.
+
+Resolution: use each JSON response's `run_id` to locate its actual generated Word file under `outputs/`, then pair those files in both `outputs/demo/` and `evals/fixtures/`. Re-running the evaluation passed all 24 checks across the two cases. The packaging script now includes these paired fixtures and the evaluator.
 
 ## Environment observations
 
