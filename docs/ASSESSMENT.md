@@ -17,6 +17,7 @@ This maps the supplied two-page assessment to the implementation and acceptance 
 | Complex request | `examples/complex.json` | Live scope conflict, missing owner/budget, risks and estimate run |
 | No managed no-code platform | Python source controls workflow and tools | Source walkthrough |
 | Code quality and fundamentals | Typed contracts, separated modules, tests, bounded failures | Tests and architecture explanation |
+| Optional frontend and guardrails | Same-origin browser interface and deterministic request/output checks | Open `/`, run an example, inspect plan/review; show rejected secret input without a model call |
 | Debugging insight | Document an actual observed issue | `docs/VALIDATION.md` and honest explanation |
 | Scalability thinking and tradeoff | Single-process admission, sequential flow, future queue/storage | README tradeoffs and video discussion |
 | 8–10 minute video | Nine-minute outline | Candidate records and checks actual duration |

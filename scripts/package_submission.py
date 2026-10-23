@@ -10,7 +10,11 @@ def main():
     sources = []
     for directory in ("app", "scripts", "tests", "examples", "docs", ".github"):
         sources.extend(
-            path for path in (ROOT / directory).rglob("*") if path.is_file() and "__pycache__" not in path.parts
+            path
+            for path in (ROOT / directory).rglob("*")
+            if path.is_file()
+            and "__pycache__" not in path.parts
+            and path.name not in {"VIDEO_SCRIPT.md", "DEMO.md"}
         )
     sources.extend(
         ROOT / name

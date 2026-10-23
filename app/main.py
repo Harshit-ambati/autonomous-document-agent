@@ -4,18 +4,22 @@ import asyncio
 import logging
 import ssl
 from contextlib import asynccontextmanager
+from pathlib import Path
 from uuid import UUID, uuid4
 
 import httpx
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.agent import Agent
 from app.config import Settings
+from app.guardrails import check_request
 from app.llm import AgentError, GeminiModel, LanguageModel
 from app.models import AgentRequest, AgentResponse
 
 logger = logging.getLogger("document_agent")
+STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 
 def create_app(settings: Settings | None = None, model: LanguageModel | None = None) -> FastAPI:
@@ -35,6 +39,11 @@ def create_app(settings: Settings | None = None, model: LanguageModel | None = N
         description="Plan, execute, check, and generate a business Word document. Inspect the plan and tool trace in the response.",
         lifespan=lifespan,
     )
+    application.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+    @application.get("/", include_in_schema=False)
+    async def home():
+        return FileResponse(STATIC_DIR / "index.html")
 
     @application.get("/health")
     async def health():
@@ -51,6 +60,13 @@ def create_app(settings: Settings | None = None, model: LanguageModel | None = N
         },
     )
     async def agent(body: AgentRequest):
+        try:
+            check_request(body.request)
+        except AgentError as error:
+            return JSONResponse(
+                status_code=error.status_code,
+                content={"error": {"code": error.code, "message": error.message}},
+            )
         if application.state.busy.locked():
             return JSONResponse(
                 status_code=503,
@@ -63,7 +79,7 @@ def create_app(settings: Settings | None = None, model: LanguageModel | None = N
                 headers={"Retry-After": "5"},
             )
         run_id = str(uuid4())
-        engine = Agent(application.state.model, config.output_dir, config.model)
+        engine = Agent(application.state.model, config.output_dir, config.model, config.api_key)
         async with application.state.busy:
             try:
                 async with asyncio.timeout(config.agent_timeout):

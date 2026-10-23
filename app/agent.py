@@ -6,6 +6,7 @@ from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 from app.documents import render_document
+from app.guardrails import check_output, check_review
 from app.llm import AgentError, LanguageModel
 from app.models import AgentResponse, Draft, Event, Plan, Review, Section, Table, Task
 
@@ -76,8 +77,8 @@ def calculate_budget(task: Task) -> Section:
 
 
 class Agent:
-    def __init__(self, model: LanguageModel, output_dir: Path, model_name: str):
-        self.model, self.output_dir, self.model_name = model, output_dir, model_name
+    def __init__(self, model: LanguageModel, output_dir: Path, model_name: str, api_key: str = ""):
+        self.model, self.output_dir, self.model_name, self.api_key = model, output_dir, model_name, api_key
         self.trace: list[Event] = []
 
     async def step(self, name: str, tool: str, action):
@@ -144,15 +145,11 @@ class Agent:
                     Review,
                 ),
             )
-            # A model must not silently omit plan requirements from its checklist.
-            covered = {check.requirement_index for check in review.checks}
-            missing = [i for i in range(1, len(plan.requirements) + 1) if i not in covered]
-            if missing:
+            # A model must not silently omit, duplicate, or invent requirement checks.
+            review_issues = check_review(plan, review)
+            if review_issues:
                 review.passed = False
-                review.issues.append("Review omitted plan requirement indices: " + ", ".join(map(str, missing)))
-            if any(index > len(plan.requirements) for index in covered):
-                review.passed = False
-                review.issues.append("Review referred to a nonexistent plan requirement index")
+                review.issues.extend(review_issues)
             reviews.append(review)
             if review.passed:
                 break
@@ -186,6 +183,8 @@ class Agent:
                 if task.tool == "calculate_budget":
                     draft.sections[index] = results[task.id]
 
+        await self.step("Check generated content", "output_guardrail", lambda: self._check_output(plan, draft, reviews))
+
         async def render():
             render_document(draft, self.output_dir / f"{run_id}.docx")
 
@@ -209,3 +208,6 @@ class Agent:
             (self.output_dir / f"{run_id}.docx").unlink(missing_ok=True)
             raise
         return response
+
+    async def _check_output(self, plan: Plan, draft: Draft, reviews: list[Review]) -> None:
+        check_output(plan, draft, reviews, self.api_key)

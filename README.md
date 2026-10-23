@@ -28,7 +28,7 @@ Use a Google AI Studio project with no billing enabled to keep usage within avai
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Open http://127.0.0.1:8000/docs for the interactive API. In another terminal:
+Open http://127.0.0.1:8000/ for the frontend. Enter a request or choose an example, click **Generate document**, inspect the plan and requirement checks, then download the Word file. The page and API use the same local server; no frontend build or separate development server is needed. The API is also available at http://127.0.0.1:8000/docs. In another terminal:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/demo.py --case standard
@@ -86,6 +86,19 @@ For the complex example, the agent should recognize that two engineers cannot cr
 
 Why this choice: format-valid text can still omit a deadline, budget qualification, owner or acceptance criterion. The explicit check gives a visible opportunity to catch those omissions before rendering. It adds model calls and latency. A model reviewing its own output is not an independent factual verifier; schema validation and deterministic arithmetic cover only narrower guarantees.
 
+## Frontend and guardrails
+
+The single-page frontend is served at `/`. It offers the two assessment examples, request length feedback, model configuration status, a progress indicator, the generated plan, requirement checks, decisions, execution trace, and direct Word/JSON links. Progress shows elapsed time rather than claiming live task updates. Dynamic result text is inserted as text, not HTML.
+
+The API applies these deterministic guardrails in addition to its existing typed contracts and self-check:
+
+- Before any model call, reject control characters, recognizable API keys/private keys/bearer tokens, and direct requests to reveal internal instructions or credentials. The user receives an actionable `422` error.
+- Keep plan tools limited to `draft_section` and `calculate_budget`, with bounded tasks and ordered dependencies. The model cannot select a filesystem path or run generated code.
+- Require the review to check each planned requirement exactly once. Missing, repeated, or nonexistent indices trigger the bounded revision path; a second failure withholds the document.
+- Scan the generated plan, document, and reviews for recognizable credentials before writing the Word file. A match withholds the artifact.
+
+These pattern checks cover common credential formats, not every possible secret. The model's semantic review is useful but cannot prove factual accuracy. Review the document before sharing it. Keep the server on `127.0.0.1`; it has no login or multi-user access control.
+
 ## Project structure
 
 | File | Responsibility |
@@ -96,6 +109,8 @@ Why this choice: format-valid text can still omit a deadline, budget qualificati
 | `app/llm.py` | Async Gemini REST adapter, JSON schemas and bounded retries |
 | `app/agent.py` | Planner, tool orchestration, reflection and revision |
 | `app/documents.py` | Deterministic Word styles, tables, pagination and atomic save |
+| `app/guardrails.py` | Input, review coverage, and output credential checks |
+| `app/static/` | Local frontend; no Node build step or CDN |
 | `examples/` | Standard and complex assessment inputs |
 | `scripts/demo.py` | Real HTTP demonstration and artifact downloads |
 | `tests/test_agent.py` | Offline contract, API, tool and failure-path tests |
