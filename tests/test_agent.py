@@ -117,10 +117,16 @@ def test_request_validation(tmp_path, body):
 
 def test_frontend_is_served_from_same_origin(tmp_path):
     with TestClient(create_app(Settings(output_dir=tmp_path), ScriptedModel([]))) as client:
+        redirect = client.get("/", follow_redirects=False)
         home = client.get("/")
         script = client.get("/static/app.js")
+        style = client.get("/static/style.css")
+    assert redirect.status_code == 307 and redirect.headers["location"] == "static/index.html"
     assert home.status_code == 200 and "Autonomous Document Agent" in home.text
-    assert script.status_code == 200 and "textContent" in script.text
+    assert 'href="style.css"' in home.text and 'src="app.js"' in home.text
+    assert 'href="../docs"' in home.text
+    assert script.status_code == 200 and 'apiUrl("agent")' in script.text
+    assert style.status_code == 200
 
 
 @pytest.mark.parametrize(

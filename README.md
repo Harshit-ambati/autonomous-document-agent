@@ -30,6 +30,8 @@ Use a Google AI Studio project with no billing enabled to keep usage within avai
 
 Open http://127.0.0.1:8000/ for the frontend. Enter a request or choose an example, click **Generate document**, inspect the plan and requirement checks, then download the Word file. The page and API use the same local server; no frontend build or separate development server is needed. The API is also available at http://127.0.0.1:8000/docs. In another terminal:
 
+In Antigravity, run the server command in its terminal and open the `http://127.0.0.1:8000/` URL (or the port shown by Uvicorn). Do not open `app/static/index.html` as a `file:///` preview: Generate needs the Python API running at the same web address. If port 8000 is occupied, change `--port 8000` to another free port and open that URL.
+
 ```powershell
 .\.venv\Scripts\python.exe scripts/demo.py --case standard
 .\.venv\Scripts\python.exe scripts/demo.py --case complex

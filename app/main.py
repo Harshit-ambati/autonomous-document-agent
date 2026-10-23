@@ -9,7 +9,7 @@ from uuid import UUID, uuid4
 
 import httpx
 from fastapi import FastAPI
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.agent import Agent
@@ -43,7 +43,7 @@ def create_app(settings: Settings | None = None, model: LanguageModel | None = N
 
     @application.get("/", include_in_schema=False)
     async def home():
-        return FileResponse(STATIC_DIR / "index.html")
+        return RedirectResponse("static/index.html")
 
     @application.get("/health")
     async def health():

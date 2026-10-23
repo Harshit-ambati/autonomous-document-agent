@@ -5,6 +5,9 @@ const examples = {
 
 const byId = (id) => document.getElementById(id);
 const requestInput = byId("request");
+const apiBase = new URL("../", window.location.href);
+const apiUrl = (path) => new URL(path.replace(/^\/+/, ""), apiBase);
+const serverHint = "Start the Python server in the Antigravity terminal, then open its http://127.0.0.1:8000/ address instead of previewing index.html directly.";
 
 function textNode(tag, value, className) {
   const element = document.createElement(tag);
@@ -38,8 +41,8 @@ function renderResult(data) {
   byId("review-count").textContent = data.reviews.at(-1).checks.length;
   byId("duration").textContent = `${Math.round(data.elapsed_ms / 1000)}s`;
   byId("model-name").textContent = `Model: ${data.model}`;
-  byId("download").href = data.download_url;
-  byId("json-link").href = data.trace_url;
+  byId("download").href = apiUrl(data.download_url);
+  byId("json-link").href = apiUrl(data.trace_url);
 
   replaceList("plan-list", data.plan.tasks, (task) => {
     const item = document.createElement("li");
@@ -75,7 +78,7 @@ function renderResult(data) {
 
 async function refreshHealth() {
   try {
-    const response = await fetch("/health");
+    const response = await fetch(apiUrl("health"));
     if (!response.ok) throw new Error("Health check failed");
     const health = await response.json();
     byId("health-dot").classList.add(health.model_configured ? "ready" : "warning");
@@ -83,6 +86,7 @@ async function refreshHealth() {
   } catch {
     byId("health-dot").classList.add("warning");
     byId("health-text").textContent = "Service unavailable";
+    showError(`The Python API is unavailable. ${serverHint}`);
   }
 }
 
@@ -109,7 +113,7 @@ byId("agent-form").addEventListener("submit", async (event) => {
     byId("elapsed").textContent = `Elapsed: ${Math.round((Date.now() - started) / 1000)}s`;
   }, 1000);
   try {
-    const response = await fetch("/agent", {
+    const response = await fetch(apiUrl("agent"), {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({request: value})
@@ -121,11 +125,18 @@ byId("agent-form").addEventListener("submit", async (event) => {
     }
     renderResult(data);
   } catch (error) {
-    showError(error.message || "The request could not be completed. Please retry.");
+    showError(error instanceof TypeError ? `Could not reach the Python API. ${serverHint}` : error.message || "The request could not be completed. Please retry.");
   } finally {
     clearInterval(timer);
     byId("generate").disabled = false;
   }
 });
 
-refreshHealth();
+if (window.location.protocol === "file:") {
+  byId("health-dot").classList.add("warning");
+  byId("health-text").textContent = "Open the running app";
+  byId("generate").disabled = true;
+  showError(`A file preview cannot run the document agent. ${serverHint}`);
+} else {
+  refreshHealth();
+}
