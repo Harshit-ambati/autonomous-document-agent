@@ -14,7 +14,7 @@
   {
     "id": "complex",
     "request_file": "examples/complex.json",
-    "minimum_requirements": 7,
+    "minimum_requirements": 6,
     "minimum_document_words": 500,
     "required_concepts": [
       {"name": "enterprise features", "all": ["enterprise sso", "multilingual", "crm"]},

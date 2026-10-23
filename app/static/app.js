@@ -102,6 +102,7 @@ byId("agent-form").addEventListener("submit", async (event) => {
   const value = requestInput.value.trim();
   if (value.length < 10) return showError("Please enter at least 10 characters.");
   byId("generate").disabled = true;
+  byId("elapsed").textContent = "Elapsed: 0s";
   showState("progress");
   const started = Date.now();
   const timer = setInterval(() => {
